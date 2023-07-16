@@ -11,7 +11,7 @@ spec:
     path: backend-app-k8s-manifests
   destination: 
     server: https://kubernetes.default.svc
-    namespace: frontend
+    namespace: backend
 
   syncPolicy:
     syncOptions:
