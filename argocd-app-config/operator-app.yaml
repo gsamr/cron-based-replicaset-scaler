@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cron-based-scaler
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/GeethSameera/cron-based-replicaset-scaler.git
+    targetRevision: HEAD
+    path: operator-k8s-manifests
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: scaler-configuration
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

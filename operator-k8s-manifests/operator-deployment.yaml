@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rs-scaler-operator
+  namespace: scaler-configuration
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      application: rs-scaler-operator
+  template:
+    metadata:
+      labels:
+        application: rs-scaler-operator
+    spec:
+      serviceAccountName: rs-scaler-service-account
+      containers:
+      - name: rs-scaler
+        image: rs-operator:1.0

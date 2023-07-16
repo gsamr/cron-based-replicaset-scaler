@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/GeethSameera/cron-based-replicaset-scaler.git
+    targetRevision: HEAD
+    path: frontend-app-k8s-manifests
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: frontend
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true

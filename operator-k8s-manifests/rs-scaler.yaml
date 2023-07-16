@@ -1,0 +1,27 @@
+apiVersion: kopf.dev/v1
+kind: ReplicasetScaler
+metadata:
+  name: cron-based-scaler
+  namespace: scaler-configuration
+spec:
+  schedules:
+  - replicasetname : "frontend-application"
+    namespace: "frontend"
+    scaleup:
+      schedule: "0 10 * * *"
+      replicas: 2
+      label: "rs-scale-up"
+    scaledown:
+      schedule: "0 11 * * *"
+      replicas: 1
+      label: "rs-scale-down"
+  - replicasetname : "backend-application"
+    namespace: "backend"
+    scaleup:
+      schedule: "0 10 * * *"
+      replicas: 2
+      label: "rs-scale-up"
+    scaledown:
+      schedule: "0 11 * * *"
+      replicas: 1
+      label: "rs-scale-down"

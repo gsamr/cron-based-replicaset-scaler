@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: "scaler-configuration"
+  name: rs-scaler-service-account
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rs-scaler-role-cluster
+rules:
+  - apiGroups: [batch]
+    resources: [cronjobs]
+    verbs: [create,get,watch,list]
+  - apiGroups: [apps]
+    resources: ["replicasets/scale"]
+    verbs: ["patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get","watch","list"]
+  - apiGroups: [kopf.dev]
+    resources: [replicasetscalers]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: rs-scaler-rolebinding-cluster
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rs-scaler-role-cluster
+subjects:
+  - kind: ServiceAccount
+    name: rs-scaler-service-account
+    namespace: "scaler-configuration"
