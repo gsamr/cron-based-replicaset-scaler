@@ -5,7 +5,7 @@ metadata:
   namespace: scaler-configuration
 spec:
   schedules:
-  - replicasetname : "frontend-application"
+  - replicasetname : "frontend-app"
     namespace: "frontend"
     scaleup:
       schedule: "0 10 * * *"
@@ -15,7 +15,7 @@ spec:
       schedule: "0 11 * * *"
       replicas: 1
       label: "rs-scale-down"
-  - replicasetname : "backend-application"
+  - replicasetname : "backend-app"
     namespace: "backend"
     scaleup:
       schedule: "0 10 * * *"
