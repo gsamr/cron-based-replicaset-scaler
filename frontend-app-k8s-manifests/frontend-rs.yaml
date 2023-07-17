@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: frontend-application
+  name: frontend-app
   namespace: frontend
   labels:
     app: guestbook
