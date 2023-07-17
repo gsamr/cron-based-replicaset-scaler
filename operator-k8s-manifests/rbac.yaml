@@ -22,6 +22,9 @@ rules:
   - apiGroups: [kopf.dev]
     resources: [replicasetscalers]
     verbs: [list, watch, patch, get]
+  - apiGroups: [""]
+    resources: [events]
+    verbs: [create]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
